@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 import json
 from flask_mysqldb import MySQL
-
+from controler import app
 
 
 
@@ -13,12 +13,13 @@ class ClienteModel():
     app.config['MYSQL_DB'] = 'bancodeteste'
 
     mysql = MySQL(app)
-    
-    def cadastrarEmail():
+
+
+    def cadastrarEmail(mysql):
         nome = 'Alexandre'
         email = 'aaaa@aaaa.com'
         cursor = mysql.connection.cursor()
-        cursor.execute(' INSERT INTO clientes(nome, email) VALUES (%s,%s)',(nome,email))
+        cursor.execute(''' INSERT INTO clientes VALUES(%s,%s)''',(nome,email))
         mysql.connection.commit()
         cursor.close()
 
